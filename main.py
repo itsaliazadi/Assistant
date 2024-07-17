@@ -11,7 +11,7 @@ while True:
     # Capture audio input from the microphone
     with sr.Microphone() as source:
         print("Speak something...")
-        audio_data = recognizer.listen(source, phrase_time_limit=10)
+        audio_data = recognizer.listen(source, phrase_time_limit=5)
 
     # Perform speech recognition using Google Web Speech API
     try:
@@ -23,10 +23,9 @@ while True:
             if word in text:
                 # Remind in
                 if "in" in text:
-                    print("in...")
+                    threading.Thread(target=Reminder.remind_in, args=(text,)).start()
                 # Alarm clock
                 else:
-                    # Reminder.set_alarm_clock(text)
                     threading.Thread(target=Reminder.set_alarm_clock, args=(text,)).start()
                 break
 
