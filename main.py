@@ -1,50 +1,56 @@
 import speech_recognition as sr
-<<<<<<< HEAD
-=======
 import Reminder
 import threading
->>>>>>> Reminder
+Reminder
+import Weather
+import re
+import spacy
+
 
 # Create a Recognizer instance
 recognizer = sr.Recognizer()
 
 reminder_words = ["remind", "alarm", "alert", "notify"]
+weather_words = ["weather", "climate"]
 
 while True:
     # Capture audio input from the microphone
     with sr.Microphone() as source:
         print("Speak something...")
-<<<<<<< HEAD
+
         audio_data = recognizer.listen(source, phrase_time_limit=10)
-=======
+
         audio_data = recognizer.listen(source, phrase_time_limit=5)
->>>>>>> Reminder
+
+        audio_data = recognizer.listen(source, phrase_time_limit=5)
 
     # Perform speech recognition using Google Web Speech API
     try:
         text = recognizer.recognize_google(audio_data)
-<<<<<<< HEAD
-=======
         print(f"You said:{text}")
->>>>>>> Reminder
 
         # Reminder
         for word in reminder_words:
             if word in text:
                 # Remind in
                 if "in" in text:
-<<<<<<< HEAD
-                    print("in...")
-                # Alarm clock
-                else:
-                    print(text)
-=======
                     threading.Thread(target=Reminder.remind_in, args=(text,)).start()
                 # Alarm clock
                 else:
                     threading.Thread(target=Reminder.set_alarm_clock, args=(text,)).start()
->>>>>>> Reminder
                 break
+
+        # Weather
+        for word in weather_words:
+            if word in text:
+                print(Weather.describeWeather(text))
+                break
+
+        # Temperature
+        if "temperature" in text:
+            print(Weather.getTemperature(text))
+    
+
 
 
         if (text == "Done" or text == "done"):
