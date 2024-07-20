@@ -33,7 +33,7 @@ def getTemperature(text):
 
     response = requests.get(url).json()
 
-    temperature = response["main"]["temp"] - 273.15
+    temperature = round(response["main"]["temp"] - 273.15, 2)
 
     return temperature
 

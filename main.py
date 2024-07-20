@@ -1,10 +1,10 @@
 import speech_recognition as sr
 import Reminder
 import threading
-Reminder
 import Weather
 import re
 import spacy
+import Talker
 
 
 # Create a Recognizer instance
@@ -17,10 +17,6 @@ while True:
     # Capture audio input from the microphone
     with sr.Microphone() as source:
         print("Speak something...")
-
-        audio_data = recognizer.listen(source, phrase_time_limit=10)
-
-        audio_data = recognizer.listen(source, phrase_time_limit=5)
 
         audio_data = recognizer.listen(source, phrase_time_limit=5)
 
@@ -43,12 +39,16 @@ while True:
         # Weather
         for word in weather_words:
             if word in text:
-                print(Weather.describeWeather(text))
+                # print(Weather.describeWeather(text))
+                threading.Thread(Talker.text_to_speech, args=(Weather.describeWeather(text), )).start()
+                # Talker.text_to_speech(f"The weather's condition is:{Weather.describeWeather(text)}")
                 break
 
         # Temperature
         if "temperature" in text:
-            print(Weather.getTemperature(text))
+            # print(Weather.getTemperature(text))
+            threading.Thread(Talker.text_to_speech, args=(Weather.getTemperature(text), )).start()
+            # Talker.text_to_speech(f"The temperature is:{Weather.getTemperature(text)}")
     
 
 
@@ -58,6 +58,7 @@ while True:
 
 
     except sr.UnknownValueError:
-        print("Sorry, could not understand audio.")
+        # print("Sorry, could not understand audio.")
+        Talker.text_to_speech("Sorry, could not understand audio.")
     except sr.RequestError as e:
         print("Error: Could not request results from Google Speech Recognition service;")
