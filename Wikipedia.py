@@ -1,18 +1,16 @@
 import wikipedia
 
 
-def getASummaryOf(text):
+def getASummaryOf(text) ->str:
+    try:
+        word = extractWord(text)
+        summary = wikipedia.summary(word, sentences=3)
+        
+        return summary
+    except:
+        return "No such page found on wikipedia"
 
-    word = extractWord(text)
-    
-    summary = wikipedia.summary(word, sentences=5)
-    
-    return summary
-
-
-
-def extractWord(text):
-
+def extractWord(text) ->str:
     result = text.split("of", 1)[1].strip()
     result = result.replace(" ", "")
 
