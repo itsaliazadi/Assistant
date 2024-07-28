@@ -26,6 +26,6 @@ This project aims to create a personal assistant that can understand voice comma
 * tkinter library
 
 **Installation**
-* 1-Clone the repository: git clone https://github.com/your-username/personal-assistant-project.git
-* 2-Install required libraries: pip install -r requirements.txt
+* 1-Clone the repository
+* 2-Install required libraries
 * 3-Run the application: python gui.py
