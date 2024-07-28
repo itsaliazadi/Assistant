@@ -1,50 +1,56 @@
 import requests
-import datetime
 import spacy
 import re
+import os
 
-def describeWeather(text):
-
-    try:
-        city = extractCity(text)  
-
-        base_url = "http://api.openweathermap.org/data/2.5/weather?"
-        api_token = "fa84ec4967c9f7db6440f511825cbef4"
-
-        url = base_url + "appid=" + api_token + "&q=" + city
-
-        response = requests.get(url).json()
-
-        weather_description = response["weather"][0]["description"]
-
-        return weather_description
-    except:
-        return "Couldn't find the city"
-    
-
-def getTemperature(text):
-
-    city = extractCity(text)
+def getWeatherData(text):
+    city = extractCity(text)  
 
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
-    api_token = "fa84ec4967c9f7db6440f511825cbef4"
+    api_token = os.environ.get("OPENWEATHERMAP_API_TOKEN")
 
     url = base_url + "appid=" + api_token + "&q=" + city
 
     response = requests.get(url).json()
 
-    temperature = round(response["main"]["temp"] - 273.15, 2)
-
-    return temperature
+    return response
 
 
+def describeWeather(text) -> str:
 
+    try:
+        response = getWeatherData(text)
+        weather_description = response["weather"][0]["description"]
+        return weather_description
+    
+    except requests.exceptions.RequestException as e:
+        return f"Error fetching weather data"
+    
+    except IndexError:
+        return "No city found in the text"
+    
+    except Exception as e:
+        print(e)
+        return f"An unexpected error occurred"
     
 
+def getTemperature(text) -> float:
+    try:
+        response = getWeatherData(text)
+        temperature = round(response["main"]["temp"] - 273.15, 2)
+        return temperature
+    
+    except requests.exceptions.RequestException as e:
+        return f"Error fetching weather data"
+    
+    except IndexError:
+        return "No city found in the text"
+    
+    except Exception as e:
+        return f"An unexpected error occurred"
 
 
-
-def extractCity(text):
+def extractCity(text) -> str:
 
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(text)
