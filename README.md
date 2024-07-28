@@ -15,15 +15,15 @@ This project aims to create a personal assistant that can understand voice comma
 * Wikipedia Summaries: Get summaries of Wikipedia articles on any topic
 
 **Requirements**
-Python 3.x
-speech_recognition library
-gtts library
-playsound library
-requests library
-spacy library
-wikipedia library
-customtkinter library
-tkinter library
+* Python 3.x
+* speech_recognition library
+* gtts library
+* playsound library
+* requests library
+* spacy library
+* wikipedia library
+* customtkinter library
+* tkinter library
 
 **Installation**
 Clone the repository: git clone https://github.com/your-username/personal-assistant-project.git
