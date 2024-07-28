@@ -1,11 +1,7 @@
-# Simple Virtual Assistant: Create a simple virtual assistant that can perform tasks like setting reminders, sending emails, or making phone calls. You could use Python's speech recognition and text-to-speech libraries for this project.
-
 import re
 import time
 import pygame
 from datetime import datetime, timedelta
-
-
 
 
 def set_alarm_clock(text):
@@ -74,7 +70,7 @@ def remind_in(text):
     while True:
         current_time = datetime.now().strftime('%H:%M:%S')
         if (current_time == time_to_remind):
-            pygame.mixer.music.load("C:\\Users\\User\\Desktop\\Assistant_project\\Assistant\\Sound.mp3")
+            pygame.mixer.music.load("C:\\Users\\User\\Desktop\\Assistant\\Assistant\\Sound.mp3")
             pygame.mixer.music.play()
             while pygame.mixer.music.get_busy():
                 time.sleep(0.1)
