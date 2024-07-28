@@ -1,5 +1,5 @@
 **Personal Assistant Project**
-Personal Assistant Project, a Python-based application that uses natural language processing and text to speech tools to provide a conversational interface for various tasks.
+A Python-based application that uses natural language processing and text to speech tools to provide a conversational interface for various tasks.
 
 **Overview**
 This project aims to create a personal assistant that can understand voice commands and respond accordingly. The assistant can perform tasks such as:
